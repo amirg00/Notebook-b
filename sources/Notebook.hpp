@@ -4,6 +4,7 @@
 
 using namespace std;
 
+// Max chars for one row
 #define ROW 100
 
 namespace ariel{

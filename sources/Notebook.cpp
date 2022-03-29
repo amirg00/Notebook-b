@@ -30,10 +30,6 @@ void ariel::Notebook::write(int page, int row, int column, Direction direction, 
         throw invalid_argument("Page, row and column cannot be negative, column cannot exceed 100!");
     }
 
-//    if (word.length() > 100){
-//        throw invalid_argument("Word size cannot be above 100 for deletion and writing!");
-//    }
-
     // checking for invalid chars in the given word
     for (size_t i = 0; i < word.length(); ++i) {
         if (word[i] < ' ' || word[i] >= '~'){
@@ -58,7 +54,6 @@ void ariel::Notebook::write(int page, int row, int column, Direction direction, 
     }
 
     unsigned int pos = unsigned_row > 0 ? (ROW + 1) * (unsigned_row) + unsigned_column : unsigned_column;
-    //cout << pos << " position " << endl;
 
     if (direction == Direction::Horizontal){
         if (unsigned_column + word.length() - 1 > ROW - 1){
@@ -66,7 +61,6 @@ void ariel::Notebook::write(int page, int row, int column, Direction direction, 
         }
 
         unsigned int MaxLineIndex = currPage.length() / ((ROW + 1) + 1);
-        //cout << MaxLineIndex << " walla " << endl;
         if (unsigned_row > MaxLineIndex){
             unsigned int linesToCreate = unsigned_row - MaxLineIndex;
             currPage = addLines(currPage, linesToCreate);
@@ -81,9 +75,7 @@ void ariel::Notebook::write(int page, int row, int column, Direction direction, 
     else{  // direction is Vertical
 
         unsigned int MaxLineIndex = currPage.length() / ((ROW + 1) + 1);
-        //cout << word.length() << endl;
         if (unsigned_row + word.length() > MaxLineIndex){
-            //cout << word.length() << endl;
             unsigned int linesToCreate = (unsigned_row + word.length()) - MaxLineIndex;
             currPage = addLines(currPage, linesToCreate);
         }
@@ -110,10 +102,6 @@ void ariel::Notebook::erase(int page, int row, int column, Direction direction, 
     if (page < 0 || row < 0 || column < 0 || length < 0 || column >= ROW){
         throw invalid_argument("Page, row, column and length cannot be negative!");
     }
-
-//    if (length > ROW){
-//        throw invalid_argument("Word size cannot be above 100 for deletion and writing!");
-//    }
 
     unsigned int unsigned_page = unsigned(page);
     string currPage;
@@ -185,7 +173,6 @@ string ariel::Notebook::read(int page, int row, int column, Direction direction,
         currPage =_pages.at(unsigned_page); // throws exception if page doesn't exist.
     }
     catch (exception) { // Page doesn't exist
-        // cout << "holy shit!" << endl;
         addPagesToVector(unsigned_page);
         string newPage = createNewLine("");
         _pages.insert(_pages.begin() + unsigned_page, newPage);
@@ -201,14 +188,11 @@ string ariel::Notebook::read(int page, int row, int column, Direction direction,
     string readStr;
 
     if (direction == Direction::Horizontal){
-        //cout << unsigned_column << ", " << unsigned_length << endl;
         if (unsigned_column + unsigned_length - 1 > ROW - 1){
-            //cout << "bvlalsdlasldsad" << endl;
             throw errc::result_out_of_range;
         }
 
         if (unsigned_row > MaxLineIndex){
-            //cout << "vkakfasfaskdkasd" << endl;
            return string(unsigned_length, '_');
         }
 
@@ -234,7 +218,7 @@ string ariel::Notebook::read(int page, int row, int column, Direction direction,
  * Method shows the page by a given index.
  * The representation of the page determined according to the example representation in Demo.cpp file.
    E.G.:
-              1:   _________
+                    1:   _________
 		      2:   ___~_____
 		      3:   __a~cd___
 		      4:   ___~_____
