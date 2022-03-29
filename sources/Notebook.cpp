@@ -218,7 +218,7 @@ string ariel::Notebook::read(int page, int row, int column, Direction direction,
  * Method shows the page by a given index.
  * The representation of the page determined according to the example representation in Demo.cpp file.
    E.G.:
-                     1:   _________
+                      1:   _________
 		      2:   ___~_____
 		      3:   __a~cd___
 		      4:   ___~_____
